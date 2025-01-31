@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blazor Web App presentation">
+    <title>Blazor Web App presentation </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #262626;
+            color: #ffffff;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.7;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1700px;
+            margin: 0 auto;
+            background: #2e2e2e;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .project-grid {
+            display: flex;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 400px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-section:hover .project-image {
+            transform: scale(1.03);
+        }
+
+        .description-section {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #4CAF50;
+        }
+
+        .description-text {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: #cccccc;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .features-list li {
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .highlight {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        .tech-item {
+            padding: 8px 15px;
+            background: #3d3d3d;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        /* Pop-up Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            z-index: 9999;
+            padding: 40px;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        .popup-content {
+            background: #2e2e2e;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            font-size: 2em;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+        }
+
+        /* Image in popup */
+        .popup-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .project-grid {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .image-section {
+                min-width: auto;
+            }
+
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" onclick="openPopup()">
+        <div class="project-grid">
+            <div class="image-section">
+                <img src="project2.png" alt="Мій проект" class="project-image">
+            </div>
+            
+            <div class="description-section">
+                <h1 class="project-title">
+                    Blazor Management Web App</h1>
+                
+                <p class="description-text">
+                    A dynamic role-based web application built with Blazor (.NET) that streamlines team collaboration and administrative workflows. The system provides two distinct user roles: Admin and Coworker, each with tailored functionalities to enhance productivity and management efficiency.                </p>
+
+                <div class="tech-stack">
+                    <div class="tech-item">Blazor</div>
+                    <div class="tech-item">C#</div>                  
+                    <div class="tech-item">Entity Framerwok</div>
+                    <div class="tech-item">HTML</div>
+                    <div class="tech-item">CSS</div>
+                    <div class="tech-item">MudBlazor</div>
+                </div>
+
+                <ul class="features-list">
+                    <li>🌟 𝐔𝐬𝐞𝐫 𝐀𝐜𝐜𝐨𝐮𝐧𝐭𝐬: Register and manage personal profiles. </li>
+                    <li>🔍 User Management: Effortlessly manage your profile, and update preferences for personalized settings.</li>
+                    <li>📝 Dynamic Interface: Enjoy an intuitive, user-friendly interface that adapts to your needs, making event registration and updates quick and seamless.</li>
+                </ul>
+                
+                <p class="description-text">
+                   Associated with ICT@Work
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <img src="project2.png"  class="popup-image">
+        </div>
+    </div>
+
+    <script>
+        // Open pop-up
+        function openPopup() {
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        // Close pop-up
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
